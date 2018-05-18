@@ -66,7 +66,7 @@ self.Comlink = (function () {
             throw Error("endpoint does not have all of addEventListener, removeEventListener and postMessage defined");
         activateEndpoint(endpoint);
         attachMessageHandler(endpoint, async function (event) {
-            if (!event.data.id)
+            if (!event.data.id || !event.data.callPath)
                 return;
             const irequest = event.data;
             let that = await irequest.callPath
