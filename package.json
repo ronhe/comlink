@@ -15,7 +15,7 @@
     "mypublish": "npm run build && npm run test && cp README.md package.json dist && npm publish dist",
     "build": "rm -rf dist && mkdir dist && npm run compile",
     "compile": "tsc --outDir dist && tsc -m umd --outDir dist/umd && node ./mangle_umd.js",
-    "postinstall": "cp dist/* ."
+    "postinstall": "cp -r dist/* ."
   },
   "keywords": [],
   "author": {
