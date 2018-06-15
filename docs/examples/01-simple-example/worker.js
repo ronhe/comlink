@@ -11,14 +11,13 @@
  * limitations under the License.
  */
 
-importScripts('https://cdn.jsdelivr.net/npm/comlinkjs/comlink.global.min.js');
-// importScripts('/dist/comlink.global.min.js');
+importScripts("https://cdn.jsdelivr.net/npm/comlinkjs@3/umd/comlink.js");
 
 const obj = {
   counter: 0,
   inc() {
     this.counter++;
-  },
+  }
 };
 
 Comlink.expose(obj, self);

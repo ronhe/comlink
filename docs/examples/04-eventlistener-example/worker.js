@@ -11,12 +11,18 @@
  * limitations under the License.
  */
 
-importScripts('https://cdn.jsdelivr.net/npm/comlinkjs/comlink.global.min.js');
-// importScripts('/dist/comlink.global.min.js');
-importScripts('event.transferhandler.js');
+importScripts("https://cdn.jsdelivr.net/npm/comlinkjs@3/umd/comlink.js");
+importScripts("event.transferhandler.js");
 
-Comlink.expose({
-  onclick(ev) {
-    console.log(`Click! Button id: ${ev.targetId}, Button classes: ${JSON.stringify(ev.targetClassList)}`);
+Comlink.expose(
+  {
+    onclick(ev) {
+      console.log(
+        `Click! Button id: ${ev.targetId}, Button classes: ${JSON.stringify(
+          ev.targetClassList
+        )}`
+      );
+    }
   },
-}, self);
+  self
+);

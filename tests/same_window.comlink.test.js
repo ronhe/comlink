@@ -11,6 +11,8 @@
  * limitations under the License.
  */
 
+import * as Comlink from "/base/dist/comlink.js";
+
 class SampleClass {
   constructor() {
     this._counter = 1;
@@ -249,7 +251,18 @@ describe("Comlink in the same realm", function() {
     expect(await instance._counter).to.equal(4);
   });
 
-  it("will transfer buffers", async function() {
+  const hasBroadcastChannel = _ => ('BroadcastChannel' in self);
+  guardedIt(hasBroadcastChannel)("will work with BroadcastChannel", async function() {
+    const b1 = new BroadcastChannel("comlink_bc_test");
+    const b2 = new BroadcastChannel("comlink_bc_test");
+    const proxy = Comlink.proxy(b1);
+    Comlink.expose(b => 40 + b, b2);
+    expect(await proxy(2)).to.equal(42);
+  });
+
+  // Buffer transfers seem to have regressed in Safari 11.1, it’s fixed in 11.2.
+  const isNotSafari11_1 = _ => !navigator.userAgent.includes("11.1 Safari");
+  guardedIt(isNotSafari11_1)("will transfer buffers", async function() {
     const proxy = Comlink.proxy(this.port1);
     Comlink.expose(b => b.byteLength, this.port2);
     const buffer = new Uint8Array([1, 2, 3]).buffer;
@@ -257,7 +270,7 @@ describe("Comlink in the same realm", function() {
     expect(buffer.byteLength).to.equal(0);
   });
 
-  it("will transfer deeply nested buffers", async function() {
+  guardedIt(isNotSafari11_1)("will transfer deeply nested buffers", async function() {
     const proxy = Comlink.proxy(this.port1);
     Comlink.expose(a => a.b.c.d.byteLength, this.port2);
     const buffer = new Uint8Array([1, 2, 3]).buffer;
@@ -398,3 +411,7 @@ describe("Comlink in the same realm", function() {
     expect(await proxy.value).to.equal(4);
   });
 });
+
+function guardedIt(f) {
+  return f() ? it : xit;
+}

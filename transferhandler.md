@@ -27,7 +27,7 @@ const complexNumberTransferHandler = {
 This new `TransferHandler` can be registered with Comlink like this:
 
 ```js
-Comlink.transferHandlers.set('COMPLEX', complexNumberTransferHandler);
+Comlink.transferHandlers.set("COMPLEX", complexNumberTransferHandler);
 ```
 
 The string can be arbitrary but must be unique across all `TransferHandler`s.
@@ -36,5 +36,5 @@ The string can be arbitrary but must be unique across all `TransferHandler`s.
 
 To see a more generic example see the [EventListener example] or the [Classes example].
 
-[EventListener example]: https://github.com/GoogleChromeLabs/comlink/tree/master/docs/examples/eventlistener
-[Classes example]: https://github.com/GoogleChromeLabs/comlink/tree/master/docs/examples/classes
+[eventlistener example]: https://github.com/GoogleChromeLabs/comlink/tree/master/docs/examples/eventlistener
+[classes example]: https://github.com/GoogleChromeLabs/comlink/tree/master/docs/examples/classes
